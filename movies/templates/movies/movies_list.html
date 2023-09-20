@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} Movies List {% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="row">
+            <p>Movies count: {{ movies.count }}</p>
+            {% for movie in movies %}
+                <div class="col-sm-4 text-center card">
+                {% if movie.avatar %}
+                    <img src="{{ movie.avatar.url }}" alt="Movie 1" class="avatar">
+                {% else %}
+                    <img src="" alt="Movie 1" class="avatar">
+                {% endif %}
+                <a href={% url "movie_detail" movie.id %}>
+                <h4>{{ movie.title }}</h4>
+                </a>
+                <p>{{ movie.get_description }}</p>
+                Genres:
+                {% for genre in movie.genres.all %}
+                    <span>{{ genre.title }}</span>
+                {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
